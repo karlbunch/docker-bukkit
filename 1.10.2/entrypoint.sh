@@ -18,7 +18,8 @@ if [ ! -f /data/eula.txt ]; then
 fi
 cd /data
 if [[ "$TRAVIS" = true ]]; then
-    echo "stop" | java -jar /root/$1-1.12.1.jar
+    echo "stop" | java -jar /root/$1-1.10.2.jar
 else
-    java -jar /root/$1-1.12.1.jar
+    [ ! -f /data/server.properties ] || [ "${FORCE_CONFIG}" = "true" ] && python3 /root/configure.py
+    java -jar /root/$1-1.10.2.jar
 fi
