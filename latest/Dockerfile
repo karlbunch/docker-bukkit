@@ -20,7 +20,7 @@ WORKDIR /minecraft
 RUN apk update
 RUN apk --no-cache add wget git bash
 RUN wget -O /minecraft/BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-RUN java -jar BuildTools.jar --rev 1.10  2>&1 /dev/null
+RUN java -jar BuildTools.jar --rev 1.12.2  2>&1 /dev/null
 
 FROM openjdk:8-alpine
 # frolvlad/alpine-python3
@@ -37,5 +37,6 @@ COPY --from=builder /minecraft/spigot-*.jar /root
 EXPOSE 25565
 WORKDIR /data
 ADD entrypoint.sh /root/entrypoint.sh
+ADD configure.py /root/configure.py
 ENTRYPOINT ["/root/entrypoint.sh"]
 CMD ["craftbukkit"]
